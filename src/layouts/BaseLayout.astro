@@ -2,9 +2,17 @@
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = "Documenting my nightmare journey through Google Business verification hell" } = Astro.props;
+const { 
+  title, 
+  description = "Documenting my nightmare journey through Google Business verification hell. Real stories from a real business owner trapped in verification purgatory.",
+  image = "/og-image.png"
+} = Astro.props;
+
+const siteUrl = "https://ghost-google.vercel.app";
+const fullTitle = `${title} | verification.hell`;
 ---
 
 <!DOCTYPE html>
@@ -12,12 +20,38 @@ const { title, description = "Documenting my nightmare journey through Google Bu
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
     <meta name="description" content={description} />
+    <meta name="keywords" content="Google Business verification, Google Maps verification, business verification rejected, Google verification hell, local business SEO, Google Business Profile problems, verification postcard not received, video verification rejected" />
+    <meta name="author" content="A Frustrated Business Owner" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${image}`} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={siteUrl} />
+    <meta property="twitter:title" content={fullTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={`${siteUrl}${image}`} />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <title>{title} | verification.hell</title>
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="verification.hell RSS Feed" href="/rss.xml" />
   </head>
   <body>
     <div class="scanlines"></div>
