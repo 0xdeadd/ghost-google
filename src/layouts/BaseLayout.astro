@@ -1,0 +1,339 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Documenting my nightmare journey through Google Business verification hell" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>{title} | verification.hell</title>
+  </head>
+  <body>
+    <div class="scanlines"></div>
+    <div class="crt">
+      <header>
+        <nav>
+          <a href="/" class="logo">
+            <span class="prompt">$</span> verification.hell
+          </a>
+          <div class="nav-links">
+            <a href="/">~/home</a>
+            <a href="/blog">~/blog</a>
+            <a href="/about">~/about</a>
+          </div>
+        </nav>
+      </header>
+      
+      <main>
+        <slot />
+      </main>
+      
+      <footer>
+        <div class="terminal-line">
+          <span class="prompt">$</span> echo "Made with frustration and caffeine"
+        </div>
+        <p class="copyright">© {new Date().getFullYear()} | Not affiliated with Google (obviously)</p>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg-primary: #fafaf9;
+    --bg-secondary: #f0efed;
+    --bg-tertiary: #e8e6e3;
+    --bg-terminal: #1e1e1e;
+    --text-primary: #1a1a1a;
+    --text-secondary: #3d3d3d;
+    --text-dim: #666666;
+    --text-muted: #999999;
+    --accent: #d63384;
+    --accent-hover: #ab296a;
+    --code-green: #22863a;
+    --link-blue: #0969da;
+    --border: #d1d1d1;
+    --border-strong: #1a1a1a;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Subtle dot grid pattern */
+  .scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    background-image: radial-gradient(circle, #00000008 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 1;
+  }
+
+  .crt {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .crt::before {
+    display: none;
+  }
+
+  /* Navigation */
+  header {
+    border-bottom: 2px solid var(--border-strong);
+    padding: 1rem 2rem;
+    background: var(--bg-primary);
+  }
+
+  nav {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .logo {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-weight: 600;
+  }
+
+  .logo:hover {
+    color: var(--accent);
+  }
+
+  .prompt {
+    color: var(--accent);
+    margin-right: 0.5rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    position: relative;
+    font-weight: 500;
+  }
+
+  .nav-links a::before {
+    content: '>';
+    position: absolute;
+    left: -1rem;
+    opacity: 0;
+    color: var(--accent);
+    transition: all 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--text-primary);
+  }
+
+  .nav-links a:hover::before {
+    opacity: 1;
+  }
+
+  /* Main content */
+  main {
+    flex: 1;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    border-bottom: 3px solid var(--border-strong);
+    padding-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+  }
+
+  p {
+    margin-bottom: 1.25rem;
+    color: var(--text-secondary);
+  }
+
+  a {
+    color: var(--link-blue);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  /* Code blocks - keep dark for contrast */
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--bg-tertiary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: var(--accent);
+    border: 1px solid var(--border);
+  }
+
+  pre {
+    background: var(--bg-terminal);
+    border: 2px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    color: #00ff41;
+    border: none;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    border-left: 4px solid var(--accent);
+    margin: 1.5rem 0;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    font-style: italic;
+  }
+
+  blockquote p {
+    color: var(--text-dim);
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 1rem 0 1.5rem 1.5rem;
+    color: var(--text-secondary);
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  li::marker {
+    color: var(--accent);
+  }
+
+  /* Footer */
+  footer {
+    border-top: 2px solid var(--border-strong);
+    padding: 2rem;
+    text-align: center;
+    background: var(--bg-secondary);
+    margin-top: auto;
+  }
+
+  .terminal-line {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-dim);
+  }
+
+  .copyright {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* Glitch effect for emphasis */
+  .glitch {
+    position: relative;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Terminal cursor blink */
+  .cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.2em;
+    background: var(--text-primary);
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Selection highlight */
+  ::selection {
+    background: var(--accent);
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.4rem; }
+    main { padding: 2rem 1rem; }
+    nav { padding: 1rem; }
+  }
+</style>

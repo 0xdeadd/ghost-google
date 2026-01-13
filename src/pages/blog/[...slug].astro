@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article>
+    <header class="post-header">
+      <div class="meta">
+        <span class="date">{post.data.date.toISOString().split('T')[0]}</span>
+        {post.data.tags && (
+          <div class="tags">
+            {post.data.tags.map((tag: string) => (
+              <span class="tag">#{tag}</span>
+            ))}
+          </div>
+        )}
+      </div>
+      <h1>{post.data.title}</h1>
+      {post.data.description && (
+        <p class="description">{post.data.description}</p>
+      )}
+    </header>
+
+    <div class="content">
+      <Content />
+    </div>
+
+    <footer class="post-footer">
+      <a href="/blog" class="back-link">
+        <span class="prompt">$</span> cd ../
+      </a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    max-width: 100%;
+  }
+
+  .post-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-strong);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .date {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: var(--bg-tertiary);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    margin: 0;
+    font-style: italic;
+  }
+
+  .content {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .content :global(h2) {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .content :global(h3) {
+    margin-top: 2rem;
+  }
+
+  .content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 2px solid var(--border-strong);
+    margin: 1.5rem 0;
+  }
+
+  .content :global(hr) {
+    border: none;
+    border-top: 2px dashed var(--border);
+    margin: 2rem 0;
+  }
+
+  .content :global(strong) {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-strong);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .back-link .prompt {
+    color: var(--accent);
+  }
+</style>

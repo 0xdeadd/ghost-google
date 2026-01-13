@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Home">
+  <div class="hero">
+    <pre class="ascii-art">
+ ██████╗  ██████╗  ██████╗  ██████╗ ██╗     ███████╗
+██╔════╝ ██╔═══██╗██╔═══██╗██╔════╝ ██║     ██╔════╝
+██║  ███╗██║   ██║██║   ██║██║  ███╗██║     █████╗  
+██║   ██║██║   ██║██║   ██║██║   ██║██║     ██╔══╝  
+╚██████╔╝╚██████╔╝╚██████╔╝╚██████╔╝███████╗███████╗
+ ╚═════╝  ╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
+    ██╗  ██╗███████╗██╗     ██╗                     
+    ██║  ██║██╔════╝██║     ██║                     
+    ███████║█████╗  ██║     ██║                     
+    ██╔══██║██╔══╝  ██║     ██║                     
+    ██║  ██║███████╗███████╗███████╗                
+    ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝                
+    </pre>
+    
+    <div class="terminal-block">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">bash</span>
+      </div>
+      <div class="terminal-body">
+        <p><span class="prompt">$</span> cat /var/log/google-business.log</p>
+        <p class="output">ERROR: Verification failed. Please try again.</p>
+        <p class="output">ERROR: Video rejected. Reason: unclear.</p>
+        <p class="output">ERROR: Postcard never arrived. Again.</p>
+        <p class="output">ERROR: Support? What support?</p>
+        <p class="output">FATAL: Sanity not found.</p>
+        <p><span class="prompt">$</span> <span class="cursor"></span></p>
+      </div>
+    </div>
+
+    <p class="intro">
+      Welcome to my documentation of the absolute <span class="glitch">nightmare</span> 
+      that is trying to get a local business verified on Google. 
+      If you're here, you probably understand the pain.
+    </p>
+  </div>
+
+  <section class="posts-section">
+    <h2><span class="prompt">#</span> Recent Transmissions</h2>
+    
+    {posts.length === 0 ? (
+      <div class="no-posts">
+        <p>[ No posts yet. The rant is coming... ]</p>
+      </div>
+    ) : (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li class="post-item">
+            <a href={`/blog/${post.slug}`}>
+              <span class="post-date">{post.data.date.toISOString().split('T')[0]}</span>
+              <span class="post-title">{post.data.title}</span>
+              {post.data.tags && (
+                <span class="post-tags">
+                  {post.data.tags.map((tag: string) => (
+                    <span class="tag">#{tag}</span>
+                  ))}
+                </span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    margin-bottom: 3rem;
+  }
+
+  .ascii-art {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.45rem;
+    line-height: 1.1;
+    color: var(--accent);
+    overflow-x: auto;
+    margin-bottom: 2rem;
+    background: none;
+    border: none;
+    padding: 0;
+    font-weight: 700;
+  }
+
+  @media (min-width: 600px) {
+    .ascii-art {
+      font-size: 0.6rem;
+    }
+  }
+
+  @media (min-width: 800px) {
+    .ascii-art {
+      font-size: 0.75rem;
+    }
+  }
+
+  .terminal-block {
+    background: var(--bg-terminal);
+    border: 2px solid var(--border-strong);
+    border-radius: 6px;
+    margin: 2rem 0;
+    overflow: hidden;
+  }
+
+  .terminal-header {
+    background: #2d2d2d;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #444;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27ca40; }
+
+  .terminal-title {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .terminal-body {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .terminal-body p {
+    margin-bottom: 0.3rem;
+    color: #00ff41;
+  }
+
+  .terminal-body .output {
+    color: #ff6b6b;
+    padding-left: 1rem;
+  }
+
+  .terminal-body .prompt {
+    color: #ff79c6;
+  }
+
+  .intro {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .posts-section h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .no-posts {
+    padding: 2rem;
+    text-align: center;
+    border: 2px dashed var(--border);
+    border-radius: 4px;
+  }
+
+  .no-posts p {
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-item {
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-item:last-child {
+    border-bottom: none;
+  }
+
+  .post-item a {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    padding: 1rem 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    align-items: baseline;
+  }
+
+  .post-item a:hover {
+    background: var(--bg-secondary);
+    padding-left: 1rem;
+    text-decoration: none;
+  }
+
+  .post-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    min-width: 100px;
+  }
+
+  .post-title {
+    color: var(--text-primary);
+    flex: 1;
+    font-weight: 500;
+  }
+
+  .post-item a:hover .post-title {
+    color: var(--accent);
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    background: var(--bg-tertiary);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+</style>

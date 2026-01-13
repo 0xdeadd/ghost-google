@@ -1,0 +1,68 @@
+# Verification Hell Blog - Cursor Rules
+
+## Project Overview
+This is a personal blog built with Astro documenting frustrations with Google Business verification. It uses a dark, terminal/hacker aesthetic theme.
+
+## Tech Stack
+- **Framework**: Astro 4.x
+- **Content**: MDX for blog posts
+- **Styling**: Vanilla CSS with CSS variables (no frameworks)
+- **Hosting**: Vercel
+- **Fonts**: IBM Plex Mono, Share Tech Mono (Google Fonts)
+
+## Project Structure
+```
+src/
+├── content/
+│   └── blog/         # MDX blog posts
+├── layouts/
+│   └── BaseLayout.astro  # Main layout with nav/footer
+├── pages/
+│   ├── index.astro   # Home page
+│   ├── about.astro   # About page
+│   └── blog/
+│       ├── index.astro      # Blog listing
+│       └── [...slug].astro  # Individual post
+public/
+└── favicon.svg
+```
+
+## Theme & Aesthetic Guidelines
+- **Color Palette**: 
+  - Background: #fafaf9 (warm white)
+  - Primary text: #1a1a1a (near black)
+  - Accent: #d63384 (hot pink for emphasis)
+  - Links: #0969da (blue)
+  - Terminal blocks: #1e1e1e (dark, keep the hacker vibe)
+- **Typography**: Monospace only (IBM Plex Mono for body, Share Tech Mono for headings)
+- **Effects**: Subtle dot grid background, dark terminal blocks for contrast, strong borders
+- **Voice**: Frustrated but witty. Technical but accessible. Dark humor welcome.
+
+## Content Guidelines
+- Blog posts go in `src/content/blog/` as `.mdx` files
+- Required frontmatter: `title`, `date`
+- Optional frontmatter: `description`, `tags`, `draft`
+- Keep the rant authentic - this is a venting space
+- Screenshots and evidence encouraged
+
+## Commands
+- `npm run dev` - Start dev server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+
+## Deployment
+- Push to GitHub, Vercel auto-deploys from main branch
+- No special environment variables needed
+
+## Do's and Don'ts
+### Do:
+- Keep the hacker/terminal aesthetic consistent
+- Add new blog posts as needed
+- Maintain dark humor tone
+- Use code blocks for "terminal output" style formatting
+
+### Don't:
+- Add unnecessary JavaScript/interactivity
+- Over-engineer - this is a simple blog
+- Change the core aesthetic without discussion
+- Add tracking/analytics (keep it clean)

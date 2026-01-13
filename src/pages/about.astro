@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About">
+  <h1><span class="prompt">$</span> whoami</h1>
+
+  <div class="about-content">
+    <div class="terminal-block">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">user@verification-hell</span>
+      </div>
+      <div class="terminal-body">
+        <p><span class="prompt">$</span> cat ~/.profile</p>
+        <pre class="output">
+NAME="A Frustrated Business Owner"
+LOCATION="Somewhere Google Can't Verify"
+STATUS="Permanently Pending Verification"
+MOOD="Increasingly Unhinged"
+        </pre>
+      </div>
+    </div>
+
+    <h2>Why This Blog Exists</h2>
+    
+    <p>
+      I started this blog to document my ongoing battle with Google's business 
+      verification system. What should have been a simple process—proving that 
+      my legitimate, physical business exists—turned into a months-long 
+      odyssey of rejected verifications, phantom postcards, and support 
+      tickets that vanish into the void.
+    </p>
+
+    <p>
+      If you've found this blog, chances are you're experiencing similar 
+      frustrations. You're not alone. You're not crazy. The system is 
+      genuinely broken.
+    </p>
+
+    <h2>What You'll Find Here</h2>
+    
+    <ul>
+      <li>Real-time documentation of my verification attempts</li>
+      <li>Screenshots of absurd error messages and rejections</li>
+      <li>Attempts to find workarounds (spoiler: there aren't many)</li>
+      <li>Occasional existential despair</li>
+      <li>Maybe, eventually, success? (Don't hold your breath)</li>
+    </ul>
+
+    <h2>Contact</h2>
+    
+    <p>
+      Want to share your own Google Business horror story? 
+      Feel free to reach out. Misery loves company.
+    </p>
+
+    <div class="contact-info">
+      <p><span class="label">Email:</span> your-email@example.com</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-content {
+    max-width: 100%;
+  }
+
+  .terminal-block {
+    background: var(--bg-terminal);
+    border: 2px solid var(--border-strong);
+    border-radius: 6px;
+    margin: 2rem 0;
+    overflow: hidden;
+  }
+
+  .terminal-header {
+    background: #2d2d2d;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #444;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27ca40; }
+
+  .terminal-title {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .terminal-body {
+    padding: 1rem;
+  }
+
+  .terminal-body p {
+    margin-bottom: 0.5rem;
+    color: #00ff41;
+  }
+
+  .terminal-body .output {
+    color: #8be9fd;
+    margin: 0;
+    font-size: 0.9rem;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .terminal-body .prompt {
+    color: #ff79c6;
+  }
+
+  .contact-info {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 4px;
+    border: 2px solid var(--border-strong);
+  }
+
+  .contact-info p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .contact-info .label {
+    color: var(--accent);
+    margin-right: 0.5rem;
+    font-weight: 600;
+  }
+</style>
