@@ -4,8 +4,8 @@ import { getCollection } from 'astro:content';
 export async function GET(context: { site: string }) {
   const posts = await getCollection('blog');
   return rss({
-    title: 'verification.hell',
-    description: 'Documenting my nightmare journey through Google Business verification hell',
+    title: 'clint.rants',
+    description: 'Clearing resentments one post at a time. Corporate nightmares, contractor horror stories, and therapeutic venting.',
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,
